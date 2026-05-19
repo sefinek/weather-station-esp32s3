@@ -1,0 +1,38 @@
+#pragma once
+
+// === Ethernet & OTA Configuration ===
+#define OTA_HOSTNAME   "Weather-Station-ESP32"            // Hostname of the device for OTA updates
+#define OTA_PORT       39572                               // Port used for OTA (default: 3232)
+#define OTA_PASSWD     "" // OTA password
+#define OTA_IP         ""                    // Target device IP address for OTA uploads
+
+// === WebSocket ===
+#define WS_HOST ""
+#define WS_PORT 59734
+#define WS_PATH "/ws"
+#define WS_PASSWD ""
+
+// === Net Logger ===
+#define NL_PORT         45231                             // Telnet server port
+#define NL_PASSWD      ""                                 // Telnet password
+#define NL_MIRROR_UART  1                                 // Mirror logs to Serial (1=yes, 0=no)
+#define NL_CRLF         1                                 // Convert LF to CRLF (1=yes, 0=no)
+#define NL_MAX_ATTEMPTS 3                                 // Max authentication attempts
+#define NL_AUTH_TIMEOUT 30                                // Authentication timeout (seconds)
+#define NL_LOCKOUT_TIME 300                               // Lockout time after failed attempts (seconds)
+
+// === NetLogger Macros ===
+#define LOGF(...) NetLogger::i().printf(__VA_ARGS__)                            // Formatted output: LOGF("Temp: %.2f°C", temp)
+#define LOGLN(s) NetLogger::i().println(s)                                      // Print with newline: LOGLN("System ready")
+#define LOG(s) NetLogger::i().print(s)                                          // Print without newline: LOG("Loading...")
+#define LOGF_P(fmt, ...) NetLogger::i().printf_PGM((PGM_P)(fmt), ##__VA_ARGS__) // Formatted output from PROGMEM: LOGF_P(PSTR("Value: %d"), val)
+#define LOGLN_P(s) NetLogger::i().println_P((PGM_P)(s))                         // Print PROGMEM string with newline: LOGLN_P(PSTR("Error!"))
+#define LOG_P(s) NetLogger::i().print_P((PGM_P)(s))                             // Print PROGMEM string without newline: LOG_P(PSTR("Status: "))
+
+// === Misc ===
+void eth_ota_begin();                // Initializes Ethernet connection and starts OTA service
+void eth_ota_handle(void);           // Handles OTA service (should be called periodically in loop)
+void netlogger_status_report();      // Reports NetLogger status with network info
+void system_info_report();           // Reports system information (memory, CPU, uptime)
+bool eth_is_connected();             // Check if Ethernet is connected
+bool netlogger_is_running();         // Check if NetLogger is running and has clients
