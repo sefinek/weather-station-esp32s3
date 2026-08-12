@@ -23,7 +23,7 @@ Arduino sketch (`weather-station-esp32s3.ino`) - flashed via Arduino IDE, no sep
 - USB CDC On Boot: `Enabled`
 - Flash Size: `16MB (128Mb)`
 - Partition Scheme: `16M Flash (3MB APP/9.9MB FATFS)`
-- PSRAM: `OPI PSRAM`.
+- PSRAM: `OPI PSRAM`
 
 Required libraries: `Adafruit BME280 Library`, `Adafruit BMP280 Library`, `BH1750`, `WebSockets`.
 
