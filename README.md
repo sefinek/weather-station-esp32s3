@@ -4,6 +4,8 @@ Firmware for a mini weather station on the [LILYGO T-ETH-Elite (ESP32-S3)](image
 
 Live sensor data from my station: https://beta.sefinek.net/projects/pogoda-zachodniopomorskie
 
+Below is a screenshot of the HTTP dashboard served by the ESP32-S3.
+
 ![Dashboard screenshot](images/brave_ASM8fSjS.jpg)
 
 ## Hardware & sensors
