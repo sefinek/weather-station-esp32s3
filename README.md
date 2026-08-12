@@ -1,6 +1,8 @@
 # weather-station-esp32s3
 
-Firmware for a mini weather station on the LILYGO T-ETH-Elite (ESP32-S3). Reads indoor/outdoor temperature, humidity, and pressure, light, rain, and gas/smoke (MQ-2), exposes a dashboard + JSON API over HTTP, and a remote console (WebSocket, BLE, USB Serial).
+Firmware for a mini weather station on the [LILYGO T-ETH-Elite (ESP32-S3)](images/S67bc5455b73e4120871490f515895578H.avif). Reads indoor/outdoor temperature, humidity, and pressure, light, rain, and gas/smoke (MQ-2), exposes a dashboard + JSON API over HTTP, and a remote console (WebSocket, BLE, USB Serial).
+
+Live sensor data from my station: https://beta.sefinek.net/projects/pogoda-zachodniopomorskie
 
 ## Hardware & sensors
 
@@ -21,7 +23,7 @@ Required libraries: `Adafruit BME280 Library`, `Adafruit BMP280 Library`, `BH175
 
 ## Configuration
 
-Copy `config.h.example` to `config.h` and fill in WiFi, passwords (SHA256), pins, and station altitude. Details in [CLAUDE.md](CLAUDE.md).
+Copy `config.h.example` to `config.h` and fill in Wi-Fi, passwords (SHA256), pins, and station altitude. Details in [CLAUDE.md](CLAUDE.md).
 
 ## License
 
