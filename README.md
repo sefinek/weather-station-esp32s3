@@ -17,7 +17,13 @@ Live sensor data from my station: https://beta.sefinek.net/projects/pogoda-zacho
 
 Arduino sketch (`weather-station-esp32s3.ino`) - flashed via Arduino IDE, no separate build step.
 
-Tools settings: Board `ESP32S3 Dev Module`, USB CDC On Boot `Enabled`, Flash Size `16MB (128Mb)`, Partition Scheme `16M Flash (3MB APP/9.9MB FATFS)`, PSRAM `OPI PSRAM`.
+### Settings
+
+- Board: `ESP32S3 Dev Module`
+- USB CDC On Boot: `Enabled`
+- Flash Size: `16MB (128Mb)`
+- Partition Scheme: `16M Flash (3MB APP/9.9MB FATFS)`
+- PSRAM: `OPI PSRAM`.
 
 Required libraries: `Adafruit BME280 Library`, `Adafruit BMP280 Library`, `BH1750`, `WebSockets`.
 
