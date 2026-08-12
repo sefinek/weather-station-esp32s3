@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArduinoSettingsState">
+    <option name="arduinoCliPath" value="C:\Users\Sefinek\AppData\Local/Programs/Arduino IDE/resources/app/lib/backend/resources/arduino-cli.exe" />
+    <option name="comPort" value="COM8" />
+    <option name="serialPort" value="COM8" />
+    <option name="activeBackend" value="esp-idf" />
+  </component>
+</project>

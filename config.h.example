@@ -1,0 +1,93 @@
+#pragma once
+#include "logger.h"
+
+// ── Debug ────────────────────────────────────────────────────
+// Uncomment to also mirror logs over Serial (USB). The BLE/HTTP
+// console log stream works either way, regardless of this setting.
+#define DEBUG
+
+#define LOG(...)   loggerPrintf(__VA_ARGS__)
+#define LOGLN(msg) loggerPrintln(msg)
+
+// ── ETH W5500 ────────────────────────────────────────────────
+// On the LILYGO T-ETH-Elite specifically, GPIO1 is hardwired on the PCB
+// as the W5500's PHY address strap (silkscreen labels it ETH_ADDR) -
+// don't reuse GPIO1 for anything else (e.g. an ADC sensor pin) on that
+// board, even though it's broken out on the 40-pin header.
+#define ETH_MISO_PIN 47
+#define ETH_MOSI_PIN 21
+#define ETH_SCLK_PIN 48
+#define ETH_CS_PIN   45
+#define ETH_INT_PIN  14
+#define ETH_RST_PIN  -1
+#define ETH_PHY_ADDR 1
+
+// ── WiFi (fallback when Ethernet has no link) ───────────────────
+#define WIFI_SSID        "your-ssid"
+#define WIFI_PASSWORD    "your-password"
+#define WIFI_FALLBACK_MS 7000  // wait this long for ETH before trying WiFi
+
+// ── I2C - BH1750 (light) ───────────────────────────────────────
+#define BH1750_SDA 41
+#define BH1750_SCL 42
+
+// ── I2C - BME280 outside ────────────────────────────────────────
+#define BME_OUT_SDA 15
+#define BME_OUT_SCL 16
+
+// ── I2C - BMP280 inside ─────────────────────────────────────────
+// No humidity sensor - inside module is a BMP280 (temp+pressure only).
+// ESP32-S3 has only 2 hardware I2C controllers, both already used above
+// (BH1750 + BME outside), so it shares the BH1750 bus (BH1750_SDA/
+// BH1750_SCL) instead of a 3rd bus - its address (0x76/0x77) differs
+// from BH1750's (0x23/0x5C), so both can sit on the same two wires
+// without conflict.
+
+// ── Rain sensor ──────────────────────────────────────────────
+#define RAIN_AO_PIN 8  // ADC1 - intensity (0=wet, 4095=dry)
+#define RAIN_DO_PIN 7  // GPIO - threshold (LOW = rain detected)
+
+// ── MQ-2 gas/smoke sensor ────────────────────────────────────
+// AO and DO require a voltage divider (5V → 3.3V): R1=10kΩ, R2=20kΩ
+#define MQ2_AO_PIN     13     // ADC1 - gas concentration (0=clean, 4095=max)
+#define MQ2_DO_PIN     4      // GPIO - threshold (LOW = gas detected)
+#define MQ2_WARMUP_MS  60000  // sensor warmup time before valid readings
+
+// ── Buzzer ───────────────────────────────────────────────────
+#define BUZZER_PIN 5  // passive piezo - PWM tone + duty-cycle volume control
+
+// ── I2C addresses ────────────────────────────────────────────
+#define BME280_ADDR 0x76  // SDO->GND = 0x76 | SDO->VCC = 0x77
+#define BH1750_ADDR 0x23  // ADDR->GND = 0x23 | ADDR->VCC = 0x5C
+
+// ── OTA ──────────────────────────────────────────────────────
+// SHA256 hash of your OTA password. Generate with:
+//   echo -n "yourpassword" | sha256sum
+#define OTA_PASSWORD_HASH "0000000000000000000000000000000000000000000000000000000000000000"
+
+// ── Console (HTTP + BLE) ────────────────────────────────────
+// Required before running any command: login <password>
+// SHA256 hash of your console password. Generate with:
+//   echo -n "yourpassword" | sha256sum
+#define CONSOLE_PASSWORD_HASH "057ba03d6c44104863dc7361fe4578965d1887360f90a0895882e58a6248fc86"
+
+// ── Status LED ───────────────────────────────────────────────
+#define LED_STATUS_PIN   38  // onboard LED on LILYGO T-ETH-Elite
+#define LED_EXTERNAL_PIN 39  // external LED (adjust pin as needed)
+
+// ── Misc ─────────────────────────────────────────────────────
+#define STATION_HOSTNAME   "lilygo-esp-weather-station"
+#define STATION_ALTITUDE_M 0.0f   // meters above sea level - check open-elevation.com
+#define SENSOR_INTERVAL_MS 5000
+
+// ── Sensor data structure ─────────────────────────────────────
+struct SensorData {
+    float outTemp, outHumidity, outPressure, outPressureSL;
+    float inTemp, inHumidity, inPressure;
+    float lux;
+    int  rainRaw, rainPct;
+    bool rainDetected;
+    int  mq2Raw, mq2Pct;
+    bool gasDetected;
+    bool mq2Ready;
+};
