@@ -15,7 +15,7 @@
 static unsigned long restartAt = 0;
 
 void consolePrintWelcome(Print &out) {
-    out.println(F("Stacja pogodowa - Wałcz."));
+    out.println(F("=== Stacja pogodowa: Wałcz ==="));
     out.println(F("Wymagane logowanie. Użyj: login <hasło>"));
 }
 
