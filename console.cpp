@@ -47,7 +47,7 @@ static void startWifiScan(Print &out) {
     }
     if (WiFi.scanNetworks(true) == WIFI_SCAN_RUNNING) {
         wifiScanRunning = true;
-        out.println(F("Scanning... result will appear in the log."));
+        out.println(F("Scanning... (result will appear in the log)"));
     } else {
         out.println(F("Failed to start scan."));
     }
